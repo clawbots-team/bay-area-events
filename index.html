@@ -8,39 +8,77 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f5f5f7;color:#1d1d1f;line-height:1.6;padding-bottom:60px}
-.hero{background:linear-gradient(135deg,#1a1a2e,#16213e);color:#fff;padding:48px 24px 40px;text-align:center}
-.hero h1{font-size:28px;font-weight:700;margin-bottom:8px}
-.hero p{font-size:15px;opacity:.85;max-width:400px;margin:0 auto}
-.badge{display:inline-block;background:rgba(255,255,255,.15);padding:4px 14px;border-radius:20px;font-size:13px;margin-top:12px}
-.section{padding:20px 16px;max-width:960px;margin:0 auto}
-.section-title{font-size:20px;font-weight:700;margin-bottom:4px;padding:0 4px}
-.section-sub{font-size:14px;color:#6e6e73;margin-bottom:16px;padding:0 4px}
-.event-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-@media(min-width:640px){.event-grid{gap:16px}}
-.card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.08);display:flex;flex-direction:column;height:100%}
+
+/* Hero — scales with viewport */
+.hero{background:linear-gradient(135deg,#1a1a2e,#16213e);color:#fff;padding:32px 16px 28px;text-align:center}
+.hero h1{font-size:clamp(22px,5vw,36px);font-weight:700;margin-bottom:8px}
+.hero p{font-size:clamp(13px,3vw,16px);opacity:.85;max-width:480px;margin:0 auto;padding:0 8px}
+.badge{display:inline-block;background:rgba(255,255,255,.15);padding:4px 14px;border-radius:20px;font-size:clamp(11px,2.5vw,13px);margin-top:12px}
+
+/* Sections */
+.section{padding:16px 12px;max-width:1200px;margin:0 auto;width:100%}
+.section-title{font-size:clamp(18px,4vw,24px);font-weight:700;margin-bottom:4px;padding:0 4px}
+.section-sub{font-size:clamp(13px,3vw,15px);color:#6e6e73;margin-bottom:14px;padding:0 4px}
+
+/* Event grid — mobile-first responsive columns */
+.event-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:12px;
+}
+@media(min-width:480px){
+  .event-grid{grid-template-columns:repeat(2,1fr);gap:14px}
+  .section{padding:20px 16px}
+}
+@media(min-width:768px){
+  .event-grid{grid-template-columns:repeat(3,1fr);gap:18px}
+  .hero{padding:44px 24px 36px}
+}
+@media(min-width:1100px){
+  .section{padding:28px 24px}
+  .event-grid{gap:22px}
+}
+
+/* Cards */
+.card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.08);display:flex;flex-direction:column;height:100%;transition:transform .15s,box-shadow .15s}
+@media(min-width:768px){
+  .card{border-radius:16px}
+  .card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.12)}
+}
 .card-img{width:100%;aspect-ratio:4/3;background:#e8e8ed;display:flex;align-items:center;justify-content:center;overflow:hidden}
+@media(min-width:768px){.card-img{aspect-ratio:3/2}}
 .card-img img{width:100%;height:100%;object-fit:contain;display:block}
-.card-body{padding:12px;flex:1;display:flex;flex-direction:column;gap:6px}
-.card-body h3{font-size:14px;font-weight:600;line-height:1.35;margin:0}
+.card-body{padding:10px;flex:1;display:flex;flex-direction:column;gap:5px}
+@media(min-width:480px){.card-body{padding:12px;gap:6px}}
+@media(min-width:768px){.card-body{padding:14px;gap:8px}}
+.card-body h3{font-size:clamp(13px,3.2vw,17px);font-weight:600;line-height:1.35;margin:0}
 .card-meta{display:flex;flex-wrap:wrap;gap:4px}
-.tag{font-size:10px;padding:2px 8px;border-radius:10px;font-weight:500;line-height:1.4}
+.tag{font-size:clamp(9px,2.2vw,11px);padding:2px 7px;border-radius:10px;font-weight:500;line-height:1.4}
 .tag-time{background:#e8f5e9;color:#2e7d32}
 .tag-free{background:#e3f2fd;color:#1565c0}
 .tag-cost{background:#fff3e0;color:#e65100}
 .tag-exercise{background:#fce4ec;color:#c62828}
-.card-body p{font-size:12px;color:#555;margin:0;line-height:1.45;flex:1}
-.card-loc{font-size:11px;color:#999;margin:0}
-.card-link{display:inline-block;color:#0071e3;font-size:12px;font-weight:500;text-decoration:none;margin-top:auto}
+.card-body p{font-size:clamp(11px,2.8vw,14px);color:#555;margin:0;line-height:1.45;flex:1}
+.card-loc{font-size:clamp(10px,2.4vw,12px);color:#999;margin:0}
+.card-link{display:inline-block;color:#0071e3;font-size:clamp(11px,2.6vw,13px);font-weight:500;text-decoration:none;margin-top:auto}
 .card-link:after{content:" \2192"}
-.plan{background:#fff;border-radius:16px;margin:16px;padding:20px;box-shadow:0 2px 12px rgba(0,0,0,.08)}
-.plan h3{font-size:17px;font-weight:600;margin-bottom:12px}
-.plan table{width:100%;border-collapse:collapse;font-size:13px}
-.plan th{background:#f5f5f7;padding:8px;text-align:left;font-weight:600}
-.plan td{padding:8px;border-top:1px solid #eee}
+
+/* Weekend plans */
+.plans-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:14px}
+@media(min-width:768px){.plans-grid{grid-template-columns:1fr 1fr;gap:18px}}
+.plan{background:#fff;border-radius:14px;padding:16px;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+@media(min-width:768px){.plan{padding:20px;border-radius:16px}}
+.plan h3{font-size:clamp(15px,3.5vw,18px);font-weight:600;margin-bottom:10px}
+.plan-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -4px;padding:0 4px}
+.plan table{width:100%;min-width:280px;border-collapse:collapse;font-size:clamp(11px,2.5vw,13px)}
+.plan th{background:#f5f5f7;padding:6px 8px;text-align:left;font-weight:600}
+.plan td{padding:6px 8px;border-top:1px solid #eee;vertical-align:top}
 .plan td:first-child{font-weight:600;white-space:nowrap}
-.tip{background:#fff;border-left:4px solid #ff9500;padding:14px 16px;border-radius:0 12px 12px 0;margin:16px;font-size:13px;color:#555}
+
+.tip{background:#fff;border-left:4px solid #ff9500;padding:12px 14px;border-radius:0 12px 12px 0;font-size:clamp(12px,2.8vw,14px);color:#555}
+@media(min-width:768px){.tip{padding:14px 18px;margin:0}}
 .tip b{color:#1d1d1f}
-footer{text-align:center;padding:24px 16px;font-size:12px;color:#999}
+footer{text-align:center;padding:20px 16px;font-size:clamp(11px,2.5vw,12px);color:#999}
 </style>
 </head>
 <body>
@@ -277,22 +315,30 @@ footer{text-align:center;padding:24px 16px;font-size:12px;color:#999}
 <div class="section-title">Suggested Weekend Plans</div>
 <div class="section-sub">Pick your energy level</div>
 
+<div class="plans-grid">
+
 <div class="plan">
 <h3>Active Weekend</h3>
+<div class="plan-scroll">
 <table>
 <tr><th>Day</th><th>Morning</th><th>Afternoon</th><th>Evening</th></tr>
 <tr><td>Sun 5/24</td><td>Walk Golden Gate Bridge (1 hr)</td><td>Hawk Hill hike, Marin Headlands (2.5 hrs)</td><td>FoodieLand Night Market, Daly City</td></tr>
 <tr><td>Mon 5/25</td><td>Muir Woods Redwoods (1.5 hrs)</td><td>Mt. Tam to Stinson Beach (5&ndash;6 hrs)</td><td>Ocean Beach Bonfire</td></tr>
 </table>
 </div>
+</div>
 
 <div class="plan">
 <h3>Relaxed Weekend</h3>
+<div class="plan-scroll">
 <table>
 <tr><th>Day</th><th>Morning</th><th>Afternoon</th><th>Evening</th></tr>
 <tr><td>Sun 5/24</td><td>Japanese Tea Garden (FREE 9&ndash;10 AM)</td><td>Botanical Garden Chinese Garden</td><td>Carnaval festival, Mission District</td></tr>
 <tr><td>Mon 5/25</td><td>Muir Woods Redwoods (FREE)</td><td>Crissy Field picnic + Presidio walk</td><td>Ocean Beach Bonfire</td></tr>
 </table>
+</div>
+</div>
+
 </div>
 
 <div class="tip">
@@ -306,7 +352,7 @@ Ocean Beach bonfire fire rings are first-come-first-served, arrive by 4:30 PM.
 <footer>
 Made for a group of 4 &bull; Memorial Day Weekend 2026<br>
 Photos from <a href="https://unsplash.com" style="color:#999">Unsplash</a><br>
-<span style="color:#bbb">Updated May 22, 2026 &bull; v2 grid layout</span>
+<span style="color:#bbb">Updated May 22, 2026 &bull; v3 responsive</span>
 </footer>
 
 </body>
